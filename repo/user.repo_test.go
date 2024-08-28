@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func (s *Suite) TestCreateUser(t *testing.T) {
+func TestCreateUser(t *testing.T) {
 	userObj := &User{}
 	testUser1 := fake.User("abc123@ymail.com", "john", "doe")
 
@@ -44,7 +44,7 @@ func (s *Suite) TestCreateUser(t *testing.T) {
 	}
 }
 
-func (s *Suite) TestGetOneUserByField(t *testing.T) {
+func TestGetOneUserByField(t *testing.T) {
 	userObj := &User{}
 	testUser1 := fake.User("abc123@ymail.com", "john", "doe")
 

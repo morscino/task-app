@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func (s *Suite) TaskCreate(t *testing.T) {
+func TaskCreate(t *testing.T) {
 	tasObj := &Task{}
 	testTask := &models.Task{
 		Id:          uuid.New().String(),
@@ -59,7 +59,7 @@ func (s *Suite) TaskCreate(t *testing.T) {
 	}
 }
 
-func (s *Suite) TestGetOneTaskByField(t *testing.T) {
+func TestGetOneTaskByField(t *testing.T) {
 	taskObj := &Task{}
 	testTask := &models.Task{
 		Id:          uuid.New().String(),
@@ -108,7 +108,7 @@ func (s *Suite) TestGetOneTaskByField(t *testing.T) {
 	}
 }
 
-func (s *Suite) TestUpdateTaskById(t *testing.T) {
+func TestUpdateTaskById(t *testing.T) {
 	taskObj := &Task{}
 	testUpdateTask := &models.Task{
 		Id:          uuid.New().String(),
@@ -155,7 +155,7 @@ func (s *Suite) TestUpdateTaskById(t *testing.T) {
 	}
 }
 
-func (s *Suite) TestGetAllTasks(t *testing.T) {
+func TestGetAllTasks(t *testing.T) {
 	taskObj := &Task{}
 	testTask := &models.Task{
 		Id:          uuid.New().String(),
@@ -202,7 +202,7 @@ func (s *Suite) TestGetAllTasks(t *testing.T) {
 	}
 }
 
-func (s *Suite) TestDeleteTask(t *testing.T) {
+func TestDeleteTask(t *testing.T) {
 	taskObj := &Task{}
 	testTask := &models.Task{
 		Id:          uuid.New().String(),
