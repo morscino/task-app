@@ -1,0 +1,315 @@
+definitions:
+  models.APIPagingDto:
+    properties:
+      filter:
+        type: string
+      limit:
+        type: integer
+      page:
+        type: integer
+    type: object
+  models.CreateTaskDto:
+    properties:
+      description:
+        maxLength: 100
+        minLength: 4
+        type: string
+      title:
+        maxLength: 30
+        minLength: 4
+        type: string
+    required:
+    - description
+    - title
+    type: object
+  models.ResponseObject:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  models.SignInDto:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.SignUpDto:
+    properties:
+      email:
+        type: string
+      firstName:
+        maxLength: 25
+        minLength: 2
+        type: string
+      lastName:
+        maxLength: 25
+        minLength: 2
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - firstName
+    - lastName
+    - password
+    type: object
+  models.TaskStatus:
+    enum:
+    - todo
+    - in-progress
+    - completed
+    type: string
+    x-enum-varnames:
+    - TODO
+    - IN_PROGRESS
+    - COMPLETED
+  models.UpdateTaskDto:
+    properties:
+      description:
+        maxLength: 100
+        minLength: 4
+        type: string
+      status:
+        $ref: '#/definitions/models.TaskStatus'
+      title:
+        maxLength: 30
+        minLength: 4
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /auth:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new user
+      parameters:
+      - description: data to sign up new user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignUpDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            $ref: '#/definitions/models.ResponseObject'
+      summary: Create new user
+      tags:
+      - User
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Logs in a user
+      parameters:
+      - description: data to log in a user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignInDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            $ref: '#/definitions/models.ResponseObject'
+      summary: Login  user
+      tags:
+      - User
+  /tasks:
+    get:
+      consumes:
+      - application/json
+      description: Gets All tasks
+      parameters:
+      - description: 'data to query for all '
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.APIPagingDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            type: string
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get All Tasks
+      tags:
+      - Task
+    post:
+      consumes:
+      - application/json
+      description: Creates a new task
+      parameters:
+      - description: data to create new task
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateTaskDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            $ref: '#/definitions/models.ResponseObject'
+      summary: Create new Task
+      tags:
+      - Task
+  /tasks/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete task by id
+      parameters:
+      - description: Task Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            type: string
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete task
+      tags:
+      - Task
+    get:
+      consumes:
+      - application/json
+      description: Get Single task by id
+      parameters:
+      - description: Task Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            type: string
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get Single task
+      tags:
+      - Task
+    put:
+      consumes:
+      - application/json
+      description: Upadates Task with a guven Id
+      parameters:
+      - description: Task Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: data to update task with
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateTaskDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            type: string
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update Task
+      tags:
+      - Task
+  /tasks/{id}/complete:
+    put:
+      consumes:
+      - application/json
+      description: Marks task as completed
+      parameters:
+      - description: Task Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            type: string
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Complete task
+      tags:
+      - Task
+swagger: "2.0"

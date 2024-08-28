@@ -1,0 +1,8 @@
+services:
+  backend:
+    build:
+      context: .
+      args:
+        app_env: ${APP_ENV}
+    ports:
+      - "7070:8000"
