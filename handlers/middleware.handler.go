@@ -13,7 +13,7 @@ func (h *Handler) AuthenticatedUserMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user, err := h.controller.Middleware().JwtUserAuth(c)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, models.ResponseObject{Code: http.StatusBadRequest, Error: err, Status: "bad-request", Message: err.Error()})
+			c.JSON(http.StatusBadRequest, models.ResponseObject{Code: http.StatusBadRequest, Error: err.Error(), Status: "bad-request", Message: err.Error()})
 			c.Abort()
 		} else {
 			c.Set("authUser", user)
